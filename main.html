@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <body>
+    </body>
+    <script>
+        let possibilities = ["Rock","Paper","Scissor"];
+        let myScore = 0;
+        let computerScore = 0;
+        
+        function computerRandom(){
+            return possibilities[(Math.floor(Math.random() * 3))];
+        }
+
+        function computerPlay(playerSelection,computerSelection){
+            playerSelection  = prompt("Choose one: [1] Rock | [2] Paper | [3] Scissor");
+            if (playerSelection > 0 && playerSelection <4){
+                playerSelection = possibilities[playerSelection-1];
+                alert("You choose " + playerSelection);
+                computerSelection  = computerRandom();
+                alert("Computer picked: " + computerSelection);
+                possibleResults(playerSelection,computerSelection);
+            }
+            else {
+                alert("Number doesnt exist! Pick a number between 1-3")
+                computerPlay();
+            }
+        }
+
+                
+        function possibleResults(playerSelection,computerSelection){
+            if (playerSelection == computerSelection){
+                alert("Draw!");
+            }
+            else if ((playerSelection == possibilities[0]) && (computerSelection == possibilities[1]) || 
+                     (playerSelection == possibilities[1]) && (computerSelection == possibilities[2]) ||
+                     (playerSelection == possibilities[2]) && (computerSelection == possibilities[0]))
+            {
+                alert("You loose!");
+                computerScore += 1;
+                alert("My score: "+ myScore + " | Computer score: " +computerScore);
+            }
+            else{
+                alert("You win!");
+                myScore += 1;
+                alert("My score: "+ myScore + " | Computer score: " +computerScore);
+            }
+        }
+
+        function game(){
+                computerPlay();
+            if (myScore === 5){
+               alert("You won the game!");
+               myScore =0;
+               computerScore = 0;
+            } else if (computerScore === 5){
+                alert("You lost the game!");
+                myScore =0;
+                computerScore = 0;
+            } else {
+                game();
+            }
+        }
+
+    </script>
+</html>
