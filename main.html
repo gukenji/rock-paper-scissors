@@ -1,32 +1,96 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
     <body>
+        <div class="groupChoices row-box">
+            <div class="choices">
+                <img src="images/rock.png" alt="rock">
+                <button class="button bottom-position" value="Rock" onclick="showValue(this)">Rock</button>
+            </div>
+
+            <div class="choices">
+                <img src="images/paper.png" alt="rock">
+                <button class="button bottom-position" value="Paper" onclick="showValue(this)">Paper</button>
+            </div>
+
+            <div class="choices">
+                <img src="images/scissor.png" alt="rock">
+                <button class="button bottom-position" value="Scissor" onclick="showValue(this)">Scissor</button>
+            </div>
+        </div> 
+        <div class="infos">
+            <div class="playerScore separe"></div>
+            <div class="computerScore separe"></div>
+        </div> 
+        <div class="newGame"> </div>
+
+
     </body>
+
     <script>
         let possibilities = ["Rock","Paper","Scissor"];
         let myScore = 0;
         let computerScore = 0;
-        
+
+
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.addEventListener('click', playRound));
+
+        const textMyScore = document.querySelector('div.playerScore');
+        textMyScore.textContent = "My score: " + myScore;
+
+        const textComputerScore = document.querySelector('div.computerScore');
+        textComputerScore.textContent = "Computer score: " + computerScore;
+
+        const winner = document.createElement("div");
+        winner.className = "winner";
+
+        const newGame = document.querySelector('div.newGame');
+        var newGameButton = document.createElement('button');
+        newGameButton.className = "newGameButton";
+
+
+
+
+
+        newGameButton.onclick = function () {
+            myScore = 0;
+            computerScore = 0;
+            textMyScore.textContent = "My score: " + myScore;
+            textComputerScore.textContent = "Computer score: " + computerScore;
+            newGameButton.remove();
+            document.querySelectorAll('button.button').forEach(elem => {
+                    elem.disabled=false;
+                });
+            winner.remove();
+        };
+
+        var newGameButtonText = document.createTextNode('New Game');
+
+        function showValue(obj){
+            playerSelection = obj.value;
+        }
+
         function computerRandom(){
             return possibilities[(Math.floor(Math.random() * 3))];
         }
 
-        function computerPlay(playerSelection,computerSelection){
-            playerSelection  = prompt("Choose one: [1] Rock | [2] Paper | [3] Scissor");
-            if (playerSelection > 0 && playerSelection <4){
-                playerSelection = possibilities[playerSelection-1];
-                alert("You choose " + playerSelection);
-                computerSelection  = computerRandom();
-                alert("Computer picked: " + computerSelection);
-                possibleResults(playerSelection,computerSelection);
-            }
-            else {
-                alert("Number doesnt exist! Pick a number between 1-3")
-                computerPlay();
-            }
+        function playRound(){
+            if(playerSelection == "rock") playerSelection = possibilities[0];
+            if(playerSelection == "paper") playerSelection = possibilities[1];
+            if(playerSelection == "scissor") playerSelection = possibilities[2];
+            computerSelection = computerRandom();
+            console.log("Player choose:",playerSelection," | Computer choose:",computerSelection);  
+            possibleResults(playerSelection,computerSelection);
+            textMyScore.textContent = "My score: " + myScore;
+            textComputerScore.textContent = "Computer score: " + computerScore;
+            // playerScore.value = "My score: ", myScore;
+            // computerScore.value = "Computer score: ",computerScore;
+
         }
 
-                
         function possibleResults(playerSelection,computerSelection){
             if (playerSelection == computerSelection){
                 alert("Draw!");
@@ -35,31 +99,39 @@
                      (playerSelection == possibilities[1]) && (computerSelection == possibilities[2]) ||
                      (playerSelection == possibilities[2]) && (computerSelection == possibilities[0]))
             {
-                alert("You loose!");
+                alert("You loose!\nPlayer choose: " + playerSelection + "\nComputer choose: " + computerSelection);
                 computerScore += 1;
-                alert("My score: "+ myScore + " | Computer score: " +computerScore);
+                endgame();
             }
             else{
-                alert("You win!");
+                alert("You win!\nPlayer choose: " + playerSelection + "\nComputer choose: " + computerSelection);
                 myScore += 1;
-                alert("My score: "+ myScore + " | Computer score: " +computerScore);
+                endgame();
             }
         }
 
-        function game(){
-                computerPlay();
+                
+        function endgame(){
             if (myScore === 5){
-               alert("You won the game!");
-               myScore =0;
-               computerScore = 0;
-            } else if (computerScore === 5){
-                alert("You lost the game!");
-                myScore =0;
-                computerScore = 0;
-            } else {
-                game();
+                document.body.appendChild(winner);
+                document.body.insertBefore(winner,newGame);
+                winner.textContent = "Player wins!";
+                newGameButton.appendChild(newGameButtonText);
+                newGame.appendChild(newGameButton);
+                document.querySelectorAll('button.button').forEach(elem => {
+                    elem.disabled=true;
+                });
+            } else if(computerScore === 5) {
+                document.body.appendChild(winner);
+                document.body.insertBefore(winner,newGame);
+                winner.textContent = "Computer wins!";
+                newGameButton.appendChild(newGameButtonText);
+                newGame.appendChild(newGameButton);
+                document.querySelectorAll('button.button').forEach(elem => {
+                    elem.disabled=true;
+                });
+                }
             }
-        }
 
     </script>
 </html>

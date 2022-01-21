@@ -1,0 +1,84 @@
+html {
+    background-color: aqua;
+}
+
+button{
+    margin: 5px;
+    padding: 5px 10px 5px 10px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.choices{
+    height: 300px;
+    width: 300px;
+    flex-shrink: 1;
+    margin: 0px 50px 0px 50px;
+    display:flex;
+    justify-content: center;
+}
+
+.groupChoices {
+    margin: 100px 100px 50px 100px;
+    padding: 10px;
+    justify-content: center;
+    position: relative;
+}
+
+.row-box{
+    display: flex;
+    flex-direction: row;
+}
+
+.bottom-position{
+    position: absolute;
+    bottom: 0;
+}
+
+img {
+    max-width: 70%;
+    max-height: 70%;    
+    width: 100%;
+    /* If you set a fixed width and a max-width, this means the following:
+    If the width goes above max-width, keep it at max-width. If the width is below max-width, keep it on width. */
+}
+
+.infos{
+    justify-content:center;
+    display:flex;
+    flex-direction: row;
+    font-size: 20px;
+    font-weight: bold;
+}
+.separe{
+    margin: 0px 20px;
+}
+
+.winner{
+    justify-content:center;
+    display:flex;
+    flex-direction: row;
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.newGame{
+    justify-content:center;
+    display:flex;
+    flex-direction: row;
+    margin: 10px 0px;
+}
+.newGameButton{
+    background-color:red ;
+    color: white;
+    border: none;
+
+}
+
+.button:disabled{
+    background: white;
+    opacity: 0.5;
+}
